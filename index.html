@@ -1,34 +1,44 @@
 <!DOCTYPE html>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="./style.css" rel=" stylesheet">
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=`, initial-scale=1.0" />
-  <title>Imagine Dying</title>
-</head>
-<script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
-
-<body>
-  <h1 id="counter">0</h1>
-  <script type="text/javascript">
-    var died = 0;
-    const mainCounter = document.querySelector('#counter')
-
-    ComfyJS.onCommand = (user, command, message, flags, extra) => {
-      if (flags.broadcaster && command === "died") {
-        died++
-        mainCounter.textContent = died
-        console.log(`Lauren has died ${died} times`);
-      }
-      if (flags.broadcaster && command === "reset") {
-        died = 0 
-        mainCounter.textContent = died
-        console.log('Death Counter has been reset')
-      }
-    };
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=`, initial-scale=1.0" />
     
-    ComfyJS.Init("adrunkshark");
-  </script>
-</body>
+    <title>Imagine Dying</title>
+  </head>
+  <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
 
+  <body>
+    <h1 id="counter">0</h1>
+    <script type="text/javascript">
+      var died = 0;
+      const mainCounter = document.querySelector("#counter");
+
+      ComfyJS.onCommand = (user, command, message, flags, extra) => {
+        if ((flags.mod || flags.broadcaster) && command === "died") {
+          died++;
+          console.log(`Lauren has died ${died} times`);
+        }
+        if ((flags.broadcaster || flags.mod) && command === "reset") {
+          died = 0;
+          console.log("Death Counter has been reset");
+        }
+        if ((flags.broadcaster || flags.mod) && command === "set") {
+          nobreakie = Number.isInteger(parseInt(message));
+          if (nobreakie) {
+            died = message;
+          }
+        }
+        mainCounter.textContent = died;
+        console.log(message);
+        console.log(command);
+      };
+
+      ComfyJS.Init("laurenxviii");
+    </script>
+  </body>
 </html>
